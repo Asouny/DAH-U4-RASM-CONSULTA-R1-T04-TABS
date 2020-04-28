@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
+
 import { EstudianteService } from '../services/estudiante.service';
 import { Estudiante } from '../models/estudiante';
+
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { Usuario } from '../models/usuario';
+
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -8,10 +15,10 @@ import { Estudiante } from '../models/estudiante';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-
+  isSingleClick = true;
   public students: Estudiante[];
 
-  constructor(public service: EstudianteService) {
+  constructor(public service: EstudianteService, private router: Router) {
     this.service.getStudents().subscribe(data => {
       this.students = data.map(e => {
         return{
@@ -21,5 +28,18 @@ export class Tab2Page {
       });
     });
   }
-
+  
+  detalles(student: any): void {
+    const extras: NavigationExtras = {
+      queryParams: {
+        special: JSON.stringify(student)
+      }
+    };
+    this.isSingleClick = true;
+    setTimeout(() => {
+        if (this.isSingleClick) {
+          this.router.navigate(['/view-student'], extras);
+        }
+     }, 250);
+  }
 }
