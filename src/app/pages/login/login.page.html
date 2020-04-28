@@ -1,0 +1,40 @@
+<ion-header class="ion-text-center">
+  <ion-toolbar color="success">
+    <ion-title>Inicio de sesion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <form class="ion-padding" [formGroup]="myForm">
+    <ion-list>
+      <div class="content">
+        <ion-icon color= "success" size="large" name="people-circle-outline"></ion-icon>
+        <div>
+          
+          <ion-item class="home">
+            <ion-label position="floating">Correo electronico:</ion-label>
+            <ion-input formControlName="email" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item
+            *ngIf="myForm.get('email').errors && (myForm.get('email').dirty || myForm.get('email').touched || submitted)">
+            <ion-label color="danger">Correo invalido</ion-label>
+          </ion-item>
+
+          <ion-item class="home">
+            <ion-label position="floating">Contraseña:</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+          </ion-item>
+
+          <ion-item
+            *ngIf="myForm.get('password').errors && (myForm.get('password').dirty || myForm.get('password').touched || submitted)">
+            <ion-label color="danger">Contraseña invalido</ion-label>
+          </ion-item>
+
+        </div>
+      </div>
+    </ion-list>
+
+    <ion-button class="ion-text-center" color="success" (click)="iniciarSesion()">Iniciar</ion-button>
+  </form>
+</ion-content>
